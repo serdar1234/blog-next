@@ -5,21 +5,37 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
+    "format": "prettier --write \"{app,components}/**/*.{ts,tsx,scss,json}\"",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "lint-staged": "lint-staged",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "{app,components}/**/*.{ts,tsx,scss}": [
+      "npm run lint:fix",
+      "npm run format"
+    ]
   },
   "dependencies": {
+    "better-sqlite3": "^12.2.0",
+    "cloudinary": "^2.7.0",
+    "next": "15.5.2",
     "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.5.2"
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
-    "@eslint/eslintrc": "^3"
+    "husky": "^9.1.7",
+    "prettier": "^3.6.2",
+    "sass": "^1.91.0",
+    "typescript": "^5"
   }
 }
