@@ -2,6 +2,7 @@
 
 import { uploadImage } from "@/lib/cloudinary";
 import { storePost } from "@/lib/posts";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export default async function createPost(
@@ -44,5 +45,6 @@ export default async function createPost(
     userId: 1,
   });
 
+  revalidatePath("/", "layout");
   redirect("/feed");
 }
