@@ -1,7 +1,9 @@
 import { formatDate } from "@/lib/format";
 import LikeButton from "./like-icon";
+import togglePostLikeStatus from "@/actions/toggleLikes";
 
 export interface Post {
+  isLiked: boolean;
   id: number;
   title: string;
   image: string;
@@ -9,7 +11,7 @@ export interface Post {
   createdAt: string;
   content: string;
   imageUrl: string;
-  userId: string;
+  userId: number;
 }
 
 function Post({ post }: { post: Post }) {
@@ -30,7 +32,12 @@ function Post({ post }: { post: Post }) {
             </p>
           </div>
           <div>
-            <LikeButton />
+            <form
+              action={togglePostLikeStatus.bind(null, post.id)}
+              className={post.isLiked ? "liked" : ""}
+            >
+              <LikeButton />
+            </form>
           </div>
         </header>
         <p>{post.content}</p>
@@ -46,9 +53,9 @@ export default function Posts({ posts }: { posts: Post[] }) {
 
   return (
     <ul className="posts">
-      {posts.map((post) => (
-        <li key={post.id}>
-          <Post post={post} />
+      {posts.map((postItem) => (
+        <li key={postItem.id}>
+          <Post post={postItem} />
         </li>
       ))}
     </ul>
