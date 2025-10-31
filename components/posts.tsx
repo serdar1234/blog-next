@@ -4,6 +4,7 @@ import { formatDate } from "@/lib/format";
 import LikeButton from "./like-icon";
 import togglePostLikeStatus from "@/actions/toggleLikes";
 import { useOptimistic } from "react";
+import Image from "next/image";
 
 export interface Post {
   isLiked: boolean;
@@ -22,7 +23,13 @@ function Post({ post, action }: { post: Post; action: (id: number) => void }) {
   return (
     <article className="post">
       <div className="post-image">
-        <img src={post.image} alt={post.title} />
+        <Image
+          src={post.image}
+          alt={post.title}
+          width={400}
+          height={300}
+          priority
+        />
       </div>
       <div className="post-content">
         <header>
