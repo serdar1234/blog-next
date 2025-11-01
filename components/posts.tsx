@@ -19,15 +19,29 @@ export interface Post {
   userId: number;
 }
 
+interface LoaderProps {
+  src: string;
+  width: number;
+  quality?: number;
+}
+
 function Post({ post, action }: { post: Post; action: (id: number) => void }) {
+  const imageLoader = (config: LoaderProps) => {
+    const startUrl = config.src.split("upload/")[0];
+    const endUrl = config.src.split("upload/")[1];
+    const transformations = `w_200,q_auto:eco`;
+    return `${startUrl}upload/${transformations}/${endUrl}`;
+  };
   return (
     <article className="post">
       <div className="post-image">
         <Image
           src={post.image}
           alt={post.title}
-          width={400}
-          height={300}
+          loader={imageLoader}
+          width={200}
+          height={123}
+          decoding="auto"
           priority
         />
       </div>
